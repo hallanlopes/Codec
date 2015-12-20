@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License along with thi
 int le_valor_chave(int); 			          /* Lê o valor da chave informado pelo usuario */
 void reportar_retornos(int,int,int);         /* Reporta os valores retornados pelas funcoes de acordo com as entradas efetuadas pelo usuario */
 void le_nome_entrada(char *);			    /* Lê o nome do arquivo informado pelo usuario */
-int abrir_arquivo(char []);				   /* Realiza a abertura do nome do arquivo informado no computador */
+int abrir_arquivo(char []);          /* Realiza a abertura do nome do arquivo informado no computador */
 int visualizar();						  /* Mostra o arquivo solicitado residente na memoria do computador */
 int exibir();						     /* Mostra as propriedades de um arquivo solicitado pelo usuario */
 int carregar_arquivo_para_memoria();    /* Carrega o arquivo residente em disco para a memoria do computador */
