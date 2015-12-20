@@ -22,10 +22,10 @@ int visualizar();                         /* Mostra o arquivo solicitado residen
 int exibir();                            /* Mostra as propriedades de um arquivo solicitado pelo usuario */
 int carregar_arquivo_para_memoria();    /* Carrega o arquivo residente em disco para a memoria do computador */
 int carregar_arquivo_para_disco(char); /* Carrega o arquivo residente na memoria do computador para o disco */
-int codificar(int);					  /* Codifica um arquivo residente em memoria de acordo com uma chave informada pelo usuario */
-int decodificar(int);		         /* Decodifica um arquivo residente em memoria de acordo com uma chave informada pelo usuario */
-int compactar();		            /* Compacta um arquivo informado pelo usuario carregado e residente na memoria do computador */
-int descompactar();				   /* Desompacta um arquivo informado pelo usuario carregado e residente na memoria do computador */
+int codificar(int);                   /* Codifica um arquivo residente em memoria de acordo com uma chave informada pelo usuario */
+int decodificar(int);                /* Decodifica um arquivo residente em memoria de acordo com uma chave informada pelo usuario */
+int compactar();                    /* Compacta um arquivo informado pelo usuario carregado e residente na memoria do computador */
+int descompactar();                /* Desompacta um arquivo informado pelo usuario carregado e residente na memoria do computador */
 
 #endif
 
