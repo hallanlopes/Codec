@@ -1,31 +1,36 @@
 /*
-- Descricão fonte : Definicão das Funcões do Codificador/Decodificador + Compactador/Descompactador 
-- Disciplina      : Seguranca e Auditoria de Sistemas 
+- Descricão fonte : Definicão das Funcões do Codificador/Decodificador + Compactador/Descompactador (Codec.c) - Codec.c
+- Disciplina      : Seguranca e Auditoria de Sistemas (8 Semestre)
 - Professor       : Mr.Oberdan Rolim 
-- Aluno 	      : Raffael Bottoli Schemmer 
+- Aluno 	  : Raffael Bottoli Schemmer 
 - Data Termino    : 24/08/2008 
+
+Copyright (C) 2015, Schemmer, B. Raffael;
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include<stdio.h>  /* printf scanf fopen feof fgets sscanf fprintf */
-#include<stdlib.h> /* system atoi itoa */
+#include<stdio.h>   /* printf scanf fopen feof fgets sscanf fprintf */
+#include<stdlib.h>  /* system atoi itoa */
 #include <string.h> /* strcpy strcmp strlen strcat */
 #define X 1024
 #define Y 256
 #define Z 4086
 #define TAM 30
 
-///////////////////////////////////////////////////////////////////////// Declaracão de Variaveis do tipo FILE
+///////////////////////////////////////////////////////////////////////// Declaração de Variáveis do tipo FILE
 FILE *arquivo; /* Ponteiro para arquivo */
-///////////////////////////////////////////////////////////////////////// Declaracão de Variaveis do tipo Char
+///////////////////////////////////////////////////////////////////////// Declaração de Variáveis do tipo Char
 char nome_arquivo[TAM];
 char matriz_memoria[X][Y];
 char temp[Y];
 char temp2[Y];
 char tipo_arquivo;
-///////////////////////////////////////////////////////////////////////// Declaracão de Variaveis do tipo Int
+///////////////////////////////////////////////////////////////////////// Declaração de Variáveis do tipo Int
 int linha,coluna,contador1,contador2,contador3,contador4,tamanho_palavra,tamanho_arquivo_compactado;
 int tamanho_linha,contador,chave,contador5,flag,tamanho_arquivo,contador_aless,contador6,linha1,marcador;
-///////////////////////////////////////////////////////////////////////// Declaracão de Variaveis do tipo banco_dados
+///////////////////////////////////////////////////////////////////////// Declaração de Variáveis do tipo banco_dados
 struct banco_dados
 {
 	int peso;
@@ -33,7 +38,7 @@ struct banco_dados
 	char aless[3];
 	
 }palavra[Z],ranking;
-///////////////////////////////////////////////////////////////////////// Funcao que reporta os erros a interface
+///////////////////////////////////////////////////////////////////////// Função que reporta os erros a interface
 void reportar_retornos(int erro,int pos,int cas)
 {
 	switch(cas) // Verifica a qual case pertence a chamada
@@ -56,11 +61,11 @@ void reportar_retornos(int erro,int pos,int cas)
 			}
 			break;
 		}
-		case(1): // Tratamento de erros da Codificacão de arquivo
+		case(1): // Tratamento de erros da Codificação de arquivo
 		{
 			switch(pos)
 			{
-				case(1): // Erros referentes a codificacão de um arquivo
+				case(1): // Erros referentes a Codificação de um arquivo
 				{
 					if(erro == 1)printf("\nVoce nao pode codificar um arquivo compactado !!\n\n");
 					if(erro == 2)printf("\nO arquivo que voce deseja codificar ja esta codificado !!\n\n");
@@ -71,7 +76,7 @@ void reportar_retornos(int erro,int pos,int cas)
 					if(erro == 1)printf("\nNao foi possivel carregar arquivo para o disco !!\n\n");
 					break;
 				} 
-				case(3): // Impressão de que a codificacão foi efetuada com sucesso	
+				case(3): // Impressão de que a Codificação foi efetuada com sucesso	
 				{
 					printf("\nArquivo codificado com sucesso !!\n\n");
 					break;
@@ -79,7 +84,7 @@ void reportar_retornos(int erro,int pos,int cas)
 			}
 			break;
 		}
-		case(2): // Tratamento de erros da Decodificacão de arquivo
+		case(2): // Tratamento de erros da Decodificação de arquivo
 		{
 			switch(pos)
 			{
@@ -94,7 +99,7 @@ void reportar_retornos(int erro,int pos,int cas)
 					if(erro == 1)printf("\nNao foi possivel carregar arquivo para o disco !!\n\n");
 					break;
 				} 
-				case(3): // Impressão de que a decodificacão foi efetuada com sucesso	
+				case(3): // Impressão de que a Decodificação foi efetuada com sucesso	
 				{
 					printf("\nArquivo Decodificado com sucesso !!\n\n");
 					break;
@@ -208,7 +213,7 @@ void reportar_retornos(int erro,int pos,int cas)
 	system("cls");
 }
 
-/////////////////////////////////////////////////////////////////////// Funcao que le a chave do usuario e retorna para o sistema
+/////////////////////////////////////////////////////////////////////// Função que le a chave do usuario e retorna para o sistema
 int le_valor_chave(int chave) // Ok
 {
 	printf("\nEntre com o valor da chave (Obs : Entre com valor inteiro) : ");
@@ -216,7 +221,7 @@ int le_valor_chave(int chave) // Ok
 	fflush(stdin);
 	return(chave);
 }
-/////////////////////////////////////////////////////////////////////// Funcao que le o nome do arquivo de entrada e retorna para o sistema
+/////////////////////////////////////////////////////////////////////// Função que le o nome do arquivo de entrada e retorna para o sistema
 void le_nome_entrada(char *nome[TAM]) // Ok
 {
 	system("cls");
@@ -225,7 +230,7 @@ void le_nome_entrada(char *nome[TAM]) // Ok
 	scanf("%s",nome);
 	fflush(stdin);
 }
-/////////////////////////////////////////////////////////////////////// Funcao que realiza a leitura do arquivo
+/////////////////////////////////////////////////////////////////////// Função que realiza a leitura do arquivo
 int abrir_arquivo(char nome_arquivo[TAM]) // Ok
 {
 	arquivo = fopen(nome_arquivo,"rb");
@@ -235,7 +240,7 @@ int abrir_arquivo(char nome_arquivo[TAM]) // Ok
 	}
 	return(0); // Retorna 0 se conseguiu abrir o arquivo
 }
-/////////////////////////////////////////////////////////////////////// Funcao que carrega o arquivo do disco para a memoria
+/////////////////////////////////////////////////////////////////////// Função que carrega o arquivo do disco para a memoria
 int carregar_arquivo_para_memoria()// Ok
 {
 	while(!feof(arquivo)) /* Enquanto for diferente do final do arquivo executa */
@@ -321,17 +326,17 @@ int carregar_arquivo_para_memoria()// Ok
 		return(2);
 	}
 }
-/////////////////////////////////////////////////////////////////////// Funcao que carrega o arquivo da memoria para o disco
+/////////////////////////////////////////////////////////////////////// Função que carrega o arquivo da memoria para o disco
 int carregar_arquivo_para_disco(char formato_saida) // Ok
 {
 	tamanho_linha = strlen(nome_arquivo); 
-	if(formato_saida == '1') // Saida da codificacão de arquivo
+	if(formato_saida == '1') // Saida da Codificação de arquivo
 	{
 		nome_arquivo[tamanho_linha-3] = 'c';
 		nome_arquivo[tamanho_linha-2] = 'f';
 		nome_arquivo[tamanho_linha-1] = 'r';
 	}
-	if(formato_saida == '2') // Saida da decodificacão de arquivo
+	if(formato_saida == '2') // Saida da Decodificação de arquivo
 	{
 		nome_arquivo[tamanho_linha-3] = 't';
 		nome_arquivo[tamanho_linha-2] = 'x';
@@ -373,7 +378,7 @@ int carregar_arquivo_para_disco(char formato_saida) // Ok
 	}
 	return(0);
 }
-/////////////////////////////////////////////////////////////////////// Funcao que codifica o arquivo de acordo com uma chave informada
+/////////////////////////////////////////////////////////////////////// Função que codifica o arquivo de acordo com uma chave informada
 int codificar(int chave) // Ok
 {
 	if(tipo_arquivo == 'S')
@@ -416,7 +421,7 @@ int codificar(int chave) // Ok
 		}
 	}	
 	return(0);
-}/////////////////////////////////////////////////////////////////////// Funcao que decodifica o arquivo de acordo com uma chave informada
+}/////////////////////////////////////////////////////////////////////// Função que decodifica o arquivo de acordo com uma chave informada
 int decodificar(int chave)// Ok
 {
 	if(tipo_arquivo == 'T')
@@ -460,7 +465,7 @@ int decodificar(int chave)// Ok
 	}
 	return(0);
 }
-/////////////////////////////////////////////////////////////////////// Funcao que compacta um arquivo
+/////////////////////////////////////////////////////////////////////// Função que compacta um arquivo
 int compactar() // Verificar
 {
 	contador_aless = 0; // Incrementar as posicoes da estrutura
@@ -659,7 +664,7 @@ int compactar() // Verificar
 	printf("O percentual de compactacao do arquivo e de 	: %d %%\n",(tamanho_arquivo_compactado*100/tamanho_arquivo));
 	return(0);
 }
-/////////////////////////////////////////////////////////////////////// Funcao que descompacta um arquivo
+/////////////////////////////////////////////////////////////////////// Função que descompacta um arquivo
 int descompactar() // Terminar
 {
 	if(tipo_arquivo == 'T')
@@ -787,7 +792,7 @@ int descompactar() // Terminar
 	linha = contador6;
 	return(0);
 }
-/////////////////////////////////////////////////////////////////////// Funcao que visualiza o arquivo informado
+/////////////////////////////////////////////////////////////////////// Função que visualiza o arquivo informado
 int visualizar() // Ok
 {
 	printf("\n\nVisualizando o arquivo : %s\n\n\n",nome_arquivo);
@@ -824,7 +829,7 @@ int visualizar() // Ok
 	printf("\n\n");
 	return(0);
 }
-/////////////////////////////////////////////////////////////////////// Funcao que exibe os dados do arquivo informado
+/////////////////////////////////////////////////////////////////////// Função que exibe os dados do arquivo informado
 int exibir() // Ok
 {
 	if(tipo_arquivo == 'T')
