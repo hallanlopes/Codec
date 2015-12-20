@@ -1,22 +1,27 @@
 /*
-- Descricão fonte : Interface do Codificador/Decodificador + Compactador/Descompactador 
-- Disciplina      : Seguranca e Auditoria de Sistemas 
+- Descrição fonte : Interface do Codificador/Decodificador e Compactador/Descompactador (Codec) - Codec.c
+- Disciplina      : Segurança e Auditoria de Sistemas (8 Semestre)
 - Professor       : Mr.Oberdan Rolim 
-- Aluno 	      : Raffael Bottoli Schemmer 
+- Aluno           : Raffael Bottoli Schemmer 
 - Data Termino    : 24/08/2008 
+
+Copyright (C) 2015, Schemmer, B. Raffael;
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include<stdio.h>  /* printf scanf fopen feof fgets sscanf fprintf */
 #include<stdlib.h> /* system atoi itoa */
 #include <string.h> /* strcpy strcmp strlen strcat */
-#include "Codec.h" 
+#include "Codec.h" /* Arquivo de cabeçalho das funções de compressão/descompressão e criptografia/descriptografia.
 #define TAM 30
 
-///////////////////////////////////////////////////////////////////////// Declaracao de Variaveis
+///////////////////////////////////////////////////////////////////////// Declaração de Variáveis do tipo Int
 int opcao,retorno,chave;
-///////////////////////////////////////////////////////////////////////// Declaracão de Variaveis do tipo Char
+///////////////////////////////////////////////////////////////////////// Declaração de Variáveis do tipo Char
 char nome_arquivo[TAM];
-///////////////////////////////////////////////////////////////////////// Funcao Main(Interface)
+///////////////////////////////////////////////////////////////////////// Função Main (Interface)
 int main()
 {
 	do // Menu de entrada do usuario
@@ -35,27 +40,27 @@ int main()
 		scanf("%d",&opcao);
 		fflush(stdin);
 		if(opcao == 9){break;}
-		if(opcao < 1 || opcao > 9) // Verificação de entrada do usuario
+		if(opcao < 1 || opcao > 9) // Verificação de entrada do usuário
 		{
-			printf("\n\nOpcao invalida, digite um valor pertencente ao menu acima !!\n\n");
+			printf("\n\nOpção inválida, digite um valor pertencente ao menu acima !!\n\n");
 			system("pause");
 			system("cls");
 			continue;
 		}	
 		
-		le_nome_entrada(nome_arquivo); // Chama nome de entrada que captura a entrada do nome do arquivo
+		le_nome_entrada(nome_arquivo); // Chama o nome de entrada que captura a entrada do nome do arquivo
 		if((retorno = abrir_arquivo(nome_arquivo)) == 0)
 		{
 			if((retorno = carregar_arquivo_para_memoria()) == 0)
 			{
-				switch(opcao) // Seleciona uma determinada funcionalidade de acordo com a entrada do usuario
+				switch(opcao) // Seleciona uma determinada funcionalidade de acordo com a entrada do usuário
 				{
 					case(1): // Ok // Codificar um arquivo 
 					{
-						chave = le_valor_chave(chave); // Chama a funcao le_valor_chave que efetua a leitura da chave informada pelo usuario retornando seu valor para a variavel chave
-						if((retorno = codificar(chave)) == 0) // Chama a funcao codifica que recebe como parametro o valor da chave para codificar o arquivo e retorna para retorno seu estado atual
+						chave = le_valor_chave(chave); // Chama a funcao le_valor_chave que efetua a leitura da chave informada pelo usuario retornando seu valor para a variável chave
+						if((retorno = codificar(chave)) == 0) // Chama a função codifica que recebe como parametro o valor da chave para codificar o arquivo e retorna para retorno seu estado atual
 						{
-							if((retorno = carregar_arquivo_para_disco('1')) == 0) // Chama a funcao carrega arquivo para o disco que carrega o arquivo atual codificado residente em memoria para o disco do computador 
+							if((retorno = carregar_arquivo_para_disco('1')) == 0) // Chama a função carregar_arquivo_para_disco responsável pela carga do arquivo atual (codificado) residente na memória (RAM) para o disco do computador do usuário (HDD). 
 							{
 								reportar_retornos(retorno,3,1); // Informa a sequencia(retorno,3,1) caso o case(1) execute até este ponto do codigo na opcao 1(codificar arquivo)
 								break;
