@@ -1,6 +1,6 @@
 __Assume-se para este tutorial que o computador configurado possui ambiente Linux e GCC instalado.__
 
-Codec (Na visão de usuário):
+Codec (Na visão de usuário): eduarda
 ========
 
 ```
